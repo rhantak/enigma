@@ -8,7 +8,7 @@ class Enigma
   end
 
   def encrypt
-    keys = process(num, date)
+    keys = KeyGenerator.process(num, date)
     generate_shifts(keys)
     encryption = apply_shifts(text)
     return {
@@ -19,7 +19,7 @@ class Enigma
   end
 
   def decrypt
-    keys = process(num, date)
+    keys = KeyGenerator.process(num, date)
     generate_shifts(keys)
     decryption = apply_shifts(text)
     return {
