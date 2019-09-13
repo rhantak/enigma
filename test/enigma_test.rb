@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/enigma.rb'
+require './lib/key_generator'
 
 class EnigmaTest < Minitest::Test
   def setup
@@ -37,7 +38,7 @@ class EnigmaTest < Minitest::Test
       key: "02715",
       date: "040895"
     }
-    @enigma.stubs(:process).returns([3,27,73,20])
+    KeyGenerator.stubs(:process).returns([3,27,73,20])
     @enigma.stubs(:generate_shifts).returns()
     @enigma.stubs(:apply_shifts).returns("hello world")
     assert_equal expected, @enigma.decrypt
