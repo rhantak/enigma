@@ -6,17 +6,11 @@ require './lib/key_generator'
 
 class EnigmaTest < Minitest::Test
   def setup
-    @enigma = Enigma.new("Hello world", "02715", "040895")
+    @enigma = Enigma.new
   end
 
   def test_it_exists
     assert_instance_of Enigma, @enigma
-  end
-
-  def test_initialize
-    assert_equal "Hello world", @enigma.text
-    assert_equal "02715", @enigma.num
-    assert_equal "040895", @enigma.date
   end
 
   def test_it_can_encrypt_messages
@@ -29,7 +23,7 @@ class EnigmaTest < Minitest::Test
     @enigma.stubs(:process).returns([3,27,73,20])
     @enigma.stubs(:generate_shifts).returns()
     @enigma.stubs(:apply_shifts).returns("keder ohulw")
-    assert_equal expected, @enigma.encrypt
+    assert_equal expected, @enigma.encrypt("hello world", "02715", "040895")
   end
 
   def test_it_can_decrypt_messages
@@ -41,6 +35,6 @@ class EnigmaTest < Minitest::Test
     KeyGenerator.stubs(:process).returns([3,27,73,20])
     @enigma.stubs(:generate_shifts).returns()
     @enigma.stubs(:apply_shifts).returns("hello world")
-    assert_equal expected, @enigma.decrypt
+    assert_equal expected, @enigma.decrypt("keder ohulw", "02715", "040895")
   end
 end
