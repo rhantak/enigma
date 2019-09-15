@@ -1,13 +1,5 @@
 class Enigma
-  attr_reader :text, :num, :date
-
-  def initialize(text, num, date)
-    @text = text
-    @num = num
-    @date = date
-  end
-
-  def encrypt
+  def encrypt(text, num,date)
     keys = KeyGenerator.process(num, date)
     generate_shifts(keys)
     encryption = apply_shifts(text)
@@ -18,9 +10,9 @@ class Enigma
     }
   end
 
-  def decrypt
+  def decrypt(text, num, date)
     keys = KeyGenerator.process(num, date)
-    generate_shifts(keys)
+    
     decryption = apply_shifts(text)
     return {
       decryption: decryption,
