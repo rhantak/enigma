@@ -1,6 +1,6 @@
 class Shift
-  attr_reader :character_value
-  def initialize
+  attr_reader :character_value, :type
+  def initialize(type)
     @character_value = {
       "a" => 1,
       "b" => 2,
@@ -30,30 +30,47 @@ class Shift
       "z" => 26,
       " " => 0
     }
+    @type = type
   end
 
   def a_shift(letter, keys)
-    new_value = @character_value[letter] + keys[0]
+    if type == "encrypt"
+      new_value = @character_value[letter] + keys[0]
+    elsif type == "decrypt"
+      new_value = @character_value[letter] - keys[0]
+    end
     @character_value.key(new_value % 27)
   end
 
   def b_shift(letter,keys)
-    new_value = @character_value[letter] + keys[1]
+    if type == "encrypt"
+      new_value = @character_value[letter] + keys[1]
+    elsif type == "decrypt"
+      new_value = @character_value[letter] - keys[1]
+    end
     @character_value.key(new_value % 27)
   end
 
   def c_shift(letter, keys)
-    new_value = @character_value[letter] + keys[2]
+    if type == "encrypt"
+      new_value = @character_value[letter] + keys[2]
+    elsif type == "decrypt"
+      new_value = @character_value[letter] - keys[2]
+    end
     @character_value.key(new_value % 27)
   end
 
   def d_shift(letter, keys)
-    new_value = @character_value[letter] + keys[3]
+    if type == "encrypt"
+      new_value = @character_value[letter] + keys[3]
+    elsif type == "decrypt"
+      new_value = @character_value[letter] - keys[3]
+    end
     @character_value.key(new_value % 27)
   end
 
-  def self.apply_shifts(text, keys)
-    shift = Shift.new
+  def self.apply_shifts(text, keys, type)
+    shift = Shift.new(type)
     letters = text.split("")
     shift_position = 1
     new_text = ""
