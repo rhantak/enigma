@@ -42,15 +42,14 @@ class Shift
   def self.apply_shifts(text, keys, type)
     shift = Shift.new(type)
     letters = text.split("")
-    shift_position = 0
+    position = 0
     new_text = ""
     letters.each do |letter|
-      shift_position += 1
-      shift_position = 1 if shift_position > 4
-      new_text += shift.a_shift(letter, keys) if shift_position == 1
-      new_text += shift.b_shift(letter, keys) if shift_position == 2
-      new_text += shift.c_shift(letter, keys) if shift_position == 3
-      new_text += shift.d_shift(letter, keys) if shift_position == 4
+      position += 1; position = 1 if position > 4
+      new_text += shift.a_shift(letter, keys) if position == 1
+      new_text += shift.b_shift(letter, keys) if position == 2
+      new_text += shift.c_shift(letter, keys) if position == 3
+      new_text += shift.d_shift(letter, keys) if position == 4
     end
     new_text
   end
