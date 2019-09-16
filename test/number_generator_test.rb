@@ -21,5 +21,13 @@ class NumberGeneratorTest < Minitest::Test
   end
 
   def test_it_can_generate_a_six_digit_date
+    assert_equal 6, @numgen.generate_date.length
+    # How to stub this so that it works regardless of system date?
+  end
+
+  def test_it_can_generate_digits_and_date
+    assert_equal 2, NumberGenerator.digits_and_date.length
+    assert_equal 5, NumberGenerator.digits_and_date[0].length
+    assert_equal 6, NumberGenerator.digits_and_date[1].length
   end
 end
