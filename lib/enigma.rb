@@ -1,7 +1,3 @@
-require './lib/key_generator'
-require './lib/number_generator'
-require './lib/shift'
-
 class Enigma
   def encrypt(text, num = false, date = false)
     text = text.downcase
