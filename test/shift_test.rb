@@ -5,10 +5,9 @@ require './lib/shift'
 
 class ShiftTest < Minitest::Test
   def setup
-    @shift = Shift.new
+    @shift = Shift.new("encrypt")
+    @deshift = Shift.new("decrypt")
     @no_shift_keys = [0,0,0,0]
-    @one_shift_keys = [1,1,1,1]
-    @ten_shift_keys = [10,10,10,10]
     @staggered_keys = [31,41,51,61]
   end
 
@@ -53,35 +52,45 @@ class ShiftTest < Minitest::Test
 
   def test_position_a_shift
     assert_equal "a", @shift.a_shift("a", @no_shift_keys)
-    assert_equal "b", @shift.a_shift("a", @one_shift_keys)
-    assert_equal "k", @shift.a_shift("a", @ten_shift_keys)
     assert_equal "e", @shift.a_shift("a", @staggered_keys)
+
+    assert_equal "a", @deshift.a_shift("a", @no_shift_keys)
+    assert_equal "x", @deshift.a_shift("a", @staggered_keys)
   end
 
   def test_position_b_shift
     assert_equal "a", @shift.b_shift("a", @no_shift_keys)
-    assert_equal "b", @shift.b_shift("a", @one_shift_keys)
-    assert_equal "k", @shift.b_shift("a", @ten_shift_keys)
     assert_equal "o", @shift.b_shift("a", @staggered_keys)
+
+    assert_equal "a", @deshift.b_shift("a", @no_shift_keys)
+    assert_equal "n", @deshift.b_shift("a", @staggered_keys)
   end
 
   def test_position_c_shift
+    type = "encrypt"
     assert_equal "a", @shift.c_shift("a", @no_shift_keys)
-    assert_equal "b", @shift.c_shift("a", @one_shift_keys)
-    assert_equal "k", @shift.c_shift("a", @ten_shift_keys)
     assert_equal "y", @shift.c_shift("a", @staggered_keys)
+
+    type = "decrypt"
+    assert_equal "a", @deshift.c_shift("a", @no_shift_keys)
+    assert_equal "d", @deshift.c_shift("a", @staggered_keys)
   end
 
   def test_position_d_shift
+    type = "encrypt"
     assert_equal "a", @shift.d_shift("a", @no_shift_keys)
-    assert_equal "b", @shift.d_shift("a", @one_shift_keys)
-    assert_equal "k", @shift.d_shift("a", @ten_shift_keys)
     assert_equal "h", @shift.d_shift("a", @staggered_keys)
+
+    type = "decrypt"
+    assert_equal "a", @deshift.d_shift("a", @no_shift_keys)
+    assert_equal "u", @deshift.d_shift("a", @staggered_keys)
   end
 
   def test_apply_shifts
     hw = "hello world"
-    assert_equal hw, Shift.apply_shifts(hw, @no_shift_keys)
-    assert_equal "keder ohulw", Shift.apply_shifts(hw, [3,27,73,20])
+    assert_equal hw, Shift.apply_shifts(hw, @no_shift_keys, "encrypt")
+    assert_equal "keder ohulw", Shift.apply_shifts(hw, [3,27,73,20], "encrypt")
+    assert_equal hw, Shift.apply_shifts(hw, @no_shift_keys, "decrypt")
+    assert_equal hw, Shift.apply_shifts("keder ohulw", [3,27,73,20], "decrypt")
   end
 end
