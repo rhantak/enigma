@@ -9,8 +9,7 @@ class KeyGenerator
   end
 
   def process_date(date)
-    date = date.to_i
-    key_seed = (date * date).to_s[-4..-1]
+    key_seed = (date.to_i * date.to_i).to_s[-4..-1]
     date_keys = []
     date_keys << (key_seed[0]).to_i
     date_keys << (key_seed[1]).to_i
