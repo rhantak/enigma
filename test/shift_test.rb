@@ -81,7 +81,7 @@ class ShiftTest < Minitest::Test
 
   def test_apply_shifts
     hw = "hello world"
-    assert_equal hw, @shift.apply_shifts(hw, @no_shift_keys)
-    assert_equal "keder ohulw", @shift.apply_shifts(hw, [3,27,73,20])
+    assert_equal hw, Shift.apply_shifts(hw, @no_shift_keys)
+    assert_equal "keder ohulw", Shift.apply_shifts(hw, [3,27,73,20])
   end
 end
