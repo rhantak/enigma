@@ -9,7 +9,7 @@ class Enigma
     num = seeds [0] if num == false
     date = seeds [1] if date == false
     keys = KeyGenerator.process(num, date)
-    encryption = Shift.apply_shifts(text, keys)
+    encryption = Shift.apply_shifts(text, keys, "encrypt")
     return {
       encryption: encryption,
       key: num,
@@ -20,7 +20,7 @@ class Enigma
   def decrypt(text, num, date)
     text = text.downcase
     keys = KeyGenerator.process(num, date)
-    decryption = Shift.apply_shifts(text, keys)
+    decryption = Shift.apply_shifts(text, keys, "decrypt")
     return {
       decryption: decryption,
       key: num,
