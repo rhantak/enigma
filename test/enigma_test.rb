@@ -3,6 +3,7 @@ require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/enigma.rb'
 require './lib/key_generator'
+require './lib/number_generator'
 
 class EnigmaTest < Minitest::Test
   def setup
@@ -21,7 +22,6 @@ class EnigmaTest < Minitest::Test
     }
 
     @enigma.stubs(:process).returns([3,27,73,20])
-    @enigma.stubs(:generate_shifts).returns()
     @enigma.stubs(:apply_shifts).returns("keder ohulw")
     assert_equal expected, @enigma.encrypt("hello world", "02715", "040895")
   end
@@ -33,8 +33,7 @@ class EnigmaTest < Minitest::Test
       date: "040895"
     }
     KeyGenerator.stubs(:process).returns([3,27,73,20])
-    @enigma.stubs(:generate_shifts).returns()
-    @enigma.stubs(:apply_shifts).returns("hello world")
+    Shift.stubs(:apply_shifts).returns("hello world")
     assert_equal expected, @enigma.decrypt("keder ohulw", "02715", "040895")
   end
 end
