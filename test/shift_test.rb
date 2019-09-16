@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
-require './lib/generate_shifts'
+require './lib/shift'
 
 class ShiftTest < Minitest::Test
   def setup
@@ -18,6 +18,7 @@ class ShiftTest < Minitest::Test
 
   def test_initialize
     expected = {
+
       "a" => 1,
       "b" => 2,
       "c" => 3,
@@ -44,7 +45,7 @@ class ShiftTest < Minitest::Test
       "x" => 24,
       "y" => 25,
       "z" => 26,
-      " " => 27
+      " " => 0
     }
 
     assert_equal expected, @shift.character_value
@@ -76,5 +77,11 @@ class ShiftTest < Minitest::Test
     assert_equal "b", @shift.d_shift("a", @one_shift_keys)
     assert_equal "k", @shift.d_shift("a", @ten_shift_keys)
     assert_equal "h", @shift.d_shift("a", @staggered_keys)
+  end
+
+  def test_apply_shifts
+    hw = "hello world"
+    assert_equal hw, @shift.apply_shifts(hw, @no_shift_keys)
+    assert_equal "keder ohulw", @shift.apply_shifts(hw, [3,27,73,20])
   end
 end

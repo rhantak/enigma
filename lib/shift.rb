@@ -28,7 +28,7 @@ class Shift
       "x" => 24,
       "y" => 25,
       "z" => 26,
-      " " => 27
+      " " => 0
     }
   end
 
@@ -50,5 +50,27 @@ class Shift
   def d_shift(letter, keys)
     new_value = @character_value[letter] + keys[3]
     @character_value.key(new_value % 27)
+  end
+
+  def apply_shifts(text, keys)
+    letters = text.split("")
+    shift_position = 1
+    new_text = ""
+    letters.each do |letter|
+      if shift_position == 1
+        new_text += a_shift(letter, keys)
+        shift_position = 2
+      elsif shift_position == 2
+        new_text += b_shift(letter, keys)
+        shift_position = 3
+      elsif shift_position == 3
+        new_text += c_shift(letter, keys)
+        shift_position = 4
+      elsif shift_position == 4
+        new_text += d_shift(letter, keys)
+        shift_position = 1
+      end
+    end
+    new_text
   end
 end
