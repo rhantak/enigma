@@ -59,6 +59,8 @@ class ShiftTest < Minitest::Test
 
     assert_equal "a", @deshift.a_shift("a", @no_shift_keys)
     assert_equal "x", @deshift.a_shift("a", @staggered_keys)
+
+    assert_equal "!", @shift.a_shift("!", @staggered_keys)
   end
 
   def test_position_b_shift
@@ -67,6 +69,8 @@ class ShiftTest < Minitest::Test
 
     assert_equal "a", @deshift.b_shift("a", @no_shift_keys)
     assert_equal "n", @deshift.b_shift("a", @staggered_keys)
+
+    assert_equal "!", @shift.b_shift("!", @staggered_keys)
   end
 
   def test_position_c_shift
@@ -77,6 +81,8 @@ class ShiftTest < Minitest::Test
     type = "decrypt"
     assert_equal "a", @deshift.c_shift("a", @no_shift_keys)
     assert_equal "d", @deshift.c_shift("a", @staggered_keys)
+
+    assert_equal "!", @shift.c_shift("!", @staggered_keys)
   end
 
   def test_position_d_shift
@@ -87,6 +93,8 @@ class ShiftTest < Minitest::Test
     type = "decrypt"
     assert_equal "a", @deshift.d_shift("a", @no_shift_keys)
     assert_equal "u", @deshift.d_shift("a", @staggered_keys)
+
+    assert_equal "!", @shift.d_shift("!", @staggered_keys)
   end
 
   def test_apply_shifts

@@ -16,27 +16,43 @@ class Shift
   end
 
   def a_shift(letter, keys)
-    new_value = @character_value[letter] + keys[0] if type == "encrypt"
-    new_value = @character_value[letter] - keys[0] if type == "decrypt"
-    @character_value.key(new_value % 27)
+    unless !@character_value.keys.include?(letter)
+      new_value = @character_value[letter] + keys[0] if type == "encrypt"
+      new_value = @character_value[letter] - keys[0] if type == "decrypt"
+      @character_value.key(new_value % 27)
+    else
+      new_value = letter
+    end
   end
 
   def b_shift(letter,keys)
-    new_value = @character_value[letter] + keys[1] if type == "encrypt"
-    new_value = @character_value[letter] - keys[1] if type == "decrypt"
-    @character_value.key(new_value % 27)
+    unless !@character_value.keys.include?(letter)
+      new_value = @character_value[letter] + keys[1] if type == "encrypt"
+      new_value = @character_value[letter] - keys[1] if type == "decrypt"
+      @character_value.key(new_value % 27)
+    else
+      new_value = letter
+    end
   end
 
   def c_shift(letter, keys)
-    new_value = @character_value[letter] + keys[2] if type == "encrypt"
-    new_value = @character_value[letter] - keys[2] if type == "decrypt"
-    @character_value.key(new_value % 27)
+    unless !@character_value.keys.include?(letter)
+      new_value = @character_value[letter] + keys[2] if type == "encrypt"
+      new_value = @character_value[letter] - keys[2] if type == "decrypt"
+      @character_value.key(new_value % 27)
+    else
+      new_value = letter
+    end
   end
 
   def d_shift(letter, keys)
-    new_value = @character_value[letter] + keys[3] if type == "encrypt"
-    new_value = @character_value[letter] - keys[3] if type == "decrypt"
-    @character_value.key(new_value % 27)
+    unless !@character_value.keys.include?(letter)
+      new_value = @character_value[letter] + keys[3] if type == "encrypt"
+      new_value = @character_value[letter] - keys[3] if type == "decrypt"
+      @character_value.key(new_value % 27)
+    else
+      new_value = letter
+    end
   end
 
   def self.apply_shifts(text, keys, type)
